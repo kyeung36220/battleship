@@ -1,4 +1,4 @@
-import { Gameboard, Ship } from "./functionality.js"
+import { Gameboard, Ship, Player } from "./functionality.js"
 
 // Can make ship coordinates within board
 test("Can make Horizontal ship", () => {
@@ -64,6 +64,51 @@ test("Detect if shot is a miss", () => {
     expect(testBoard.isAttackHit([0,2]))
     .toBe(false)
 })
+test("Detect if a shot is a duplicate", () => {
+    const testBoard = new Gameboard
+    const newShip = new Ship(2)
+    testBoard.makeShipOnBoard([0,0], "Vertical", newShip)
+    testBoard.receiveAttack([0,0])
+    expect(() => testBoard.receiveAttack([0,0]))
+    .toThrow("Shot has already been made")
+})
+
+//Detects if ship is sunk
+test("Detects when ship is sunk", () => {
+    const testBoard = new Gameboard
+    const newShip = new Ship(2)
+    testBoard.makeShipOnBoard([0,0], "Vertical", newShip)
+    testBoard.receiveAttack([0,1])
+    testBoard.receiveAttack([0,0])
+    expect(testBoard.ships[0].sunk)
+    .toBe(true)
+})
+//Detects if all ships are sunk
+test("Detects when all ships are sunk", () => {
+    const testBoard = new Gameboard
+    const newShip1 = new Ship(2)
+    const newShip2 = new Ship(3)
+    const newShip3 = new Ship(4)
+    testBoard.makeShipOnBoard([0,0], "Vertical", newShip1)
+    testBoard.makeShipOnBoard([1,0], "Vertical", newShip2)
+    testBoard.makeShipOnBoard([2,0], "Vertical", newShip3)
+
+    testBoard.receiveAttack([0,0])
+    testBoard.receiveAttack([0,1])
+
+    testBoard.receiveAttack([1,0])
+    testBoard.receiveAttack([1,1])
+    testBoard.receiveAttack([1,2])
+
+    testBoard.receiveAttack([2,0])
+    testBoard.receiveAttack([2,1])
+    testBoard.receiveAttack([2,2])
+    testBoard.receiveAttack([2,3])
+
+    expect(testBoard.areAllShipsSunk())
+    .toBe(true)
+})
+
 
 
 

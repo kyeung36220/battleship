@@ -18,7 +18,7 @@ export class Ship {
     }
 
     isSunk() {
-        if (this.numberOfTimesHit === length) {
+        if (this.numberOfTimesHit === this.length) {
             return true
         }
         return false
@@ -71,13 +71,20 @@ export class Gameboard {
     }
 
     receiveAttack(coords) {
-        const whatDidItHit = isAttackHit(coords)
+        const whatDidItHit = this.isAttackHit(coords)
+        if (JSON.stringify(this.hitAttacks).includes(JSON.stringify(coords)) || 
+            JSON.stringify(this.missedAttacks).includes(JSON.stringify(coords))) {
+                throw new Error("Shot has already been made")
+        }
         if (whatDidItHit === false) {
             this.missedAttacks.push(coords)
             return
         }
         else {
             whatDidItHit.hit()
+            if (whatDidItHit.isSunk() === true) {
+                whatDidItHit.sunk = true
+            }
             this.hitAttacks.push(coords)
             return
         }
@@ -90,5 +97,21 @@ export class Gameboard {
             }
         }
         return false
+    }
+
+    areAllShipsSunk() {
+        for (let i = 0; i < this.ships.length; i++) {
+            if (this.ships[i].sunk === false) {
+                return false
+            }
+        }
+        return true
+    }
+}
+
+export class Player {
+    constructor(type) {
+        this.type = type
+        this.gameboard = new Gameboard()
     }
 }
