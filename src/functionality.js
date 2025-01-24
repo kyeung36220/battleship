@@ -6,10 +6,6 @@ export class Ship {
         this.coords = []
     }
 
-    set addCoords(newCoords) {
-        this.coords = newCoords
-    }
-
     hit() {
         this.numberOfTimesHit += 1
         if (this.isSunk() === true) {
@@ -37,7 +33,7 @@ export class Gameboard {
         const fullShipCoords = []
         if (orientation === "Horizontal") {
             if (shipCoords[0] + shipObject.length - 1 > this.gridSize) {
-                throw new Error("Ship overflows board Horizontal")
+                return false
             }
             for (let i = 0; i < shipObject.length; i++) {
                 fullShipCoords.push([shipCoords[0] + i, shipCoords[1]])
@@ -45,7 +41,7 @@ export class Gameboard {
         }
         else if (orientation === "Vertical") {
             if (shipCoords[1] + shipObject.length - 1 > this.gridSize) {
-                throw new Error("Ship overflows board Vertical")
+                return false
             }
             for (let i = 0; i < shipObject.length; i++) {
                 fullShipCoords.push([shipCoords[0], shipCoords[1] + i])
@@ -57,24 +53,28 @@ export class Gameboard {
 
     makeShipOnBoard(shipCoords, orientation, shipObject) {
         const coords = this.makeShipCoords(shipCoords, orientation, shipObject)
+        if (coords === false) {
+            return false
+        }
     
         for (let i = 0; i < coords.length; i++) {
             for (let j = 0; j < this.ships.length; j++) {
                 if (JSON.stringify(this.ships[j].coords).includes(JSON.stringify(coords[i]))) {
-                    throw new Error("Ship overlapping another ship")
+                    return false
                 }
             }
         }
 
         shipObject.coords = coords
         this.ships.push(shipObject)
+        return true
     }
 
     receiveAttack(coords) {
         const whatDidItHit = this.isAttackHit(coords)
         if (JSON.stringify(this.hitAttacks).includes(JSON.stringify(coords)) || 
             JSON.stringify(this.missedAttacks).includes(JSON.stringify(coords))) {
-                throw new Error("Shot has already been made")
+                return false
         }
         if (whatDidItHit === false) {
             this.missedAttacks.push(coords)
@@ -110,8 +110,9 @@ export class Gameboard {
 }
 
 export class Player {
-    constructor(type) {
+    constructor(type, name) {
         this.type = type
         this.gameboard = new Gameboard()
+        this.name = name
     }
 }

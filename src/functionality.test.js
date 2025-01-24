@@ -16,14 +16,14 @@ test("Can make Vertical ship", () => {
 test("Checks horizontal overflow", () => {
     const testBoard = new Gameboard
     const newShip = new Ship(5)
-    expect(() => testBoard.makeShipCoords([8,3], "Horizontal", newShip))
-    .toThrow("Ship overflows board Horizontal")
+    expect(testBoard.makeShipCoords([8,3], "Horizontal", newShip))
+    .toBe(false)
 })
 test("Checks vertical overflow", () => {
     const testBoard = new Gameboard
     const newShip = new Ship(5)
-    expect(() => testBoard.makeShipCoords([0,8], "Vertical", newShip))
-    .toThrow("Ship overflows board Vertical")
+    expect(testBoard.makeShipCoords([0,8], "Vertical", newShip))
+    .toBe(false)
 })
 
 //Makes ships on board
@@ -45,8 +45,8 @@ test("Error when ships overlap", () => {
     const newShip1 = new Ship(2)
     const newShip2 = new Ship(2)
     testBoard.makeShipOnBoard([0,0], "Vertical", newShip1)
-    expect(() => testBoard.makeShipOnBoard([0,1], "Horizontal", newShip2))
-    .toThrow("Ship overlapping another ship")
+    expect(testBoard.makeShipOnBoard([0,1], "Horizontal", newShip2))
+    .toBe(false)
 })
 
 // Detects Attack
@@ -69,8 +69,8 @@ test("Detect if a shot is a duplicate", () => {
     const newShip = new Ship(2)
     testBoard.makeShipOnBoard([0,0], "Vertical", newShip)
     testBoard.receiveAttack([0,0])
-    expect(() => testBoard.receiveAttack([0,0]))
-    .toThrow("Shot has already been made")
+    expect(testBoard.receiveAttack([0,0]))
+    .toBe(false)
 })
 
 //Detects if ship is sunk

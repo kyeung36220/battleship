@@ -1,3 +1,130 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
 body {
-    background-color: rebeccapurple;
-  }
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+#root, #__next {
+  isolation: isolate;
+}
+
+:root {
+  --colorOne: #021526;
+  --colorTwo: #03346E;
+  --colorThree: #6EACDA;
+  --colorFour: #E2E2B6;
+  font-family: "Teko";
+}
+
+body {
+    background-color: var(--colorOne);
+    color: var(--colorFour);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#title {
+  font-size: 6rem;
+  text-align: center;
+  line-height: 10vh;
+  margin-top: 20px;
+}
+
+#turnDisplay {
+  font-size: 3.7rem;
+  text-align: center;
+  background-color: var(--colorFour);
+  color: var(--colorOne);
+  width: fit-content;
+  margin: 10px auto 10px auto;
+  padding: 0px 30px;
+  border-radius: 30px;
+}
+
+#boardsContainer {
+  display: flex;
+  gap: 20vw;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.boardContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.boardContainer .playerBoard {
+  display: flex;
+  flex-wrap: wrap;
+  width: 30vw;
+  height: 30vw;
+}
+
+.boardContainer .playerName {
+  text-align: center;
+  font-size: 4rem;
+}
+
+.gridCell {
+  width: 3.0vw;
+  height: 3.0vw;
+  border: 2px solid var(--colorFour);
+  background-color: var(--colorOne);
+}
+
+.gridCell:hover {
+  cursor: pointer;
+  background-color: var(--colorThree);
+}
+
+#footer {
+  display: flex;
+  margin-top: auto;
+  background-color: var(--colorFour);
+  color: var(--colorOne);
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  gap: 20px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#footer div {
+  margin-top: 4px;;
+}
+
+#footer img {
+  cursor: pointer;
+  height: 30px;
+}
