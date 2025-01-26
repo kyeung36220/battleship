@@ -68,7 +68,6 @@ function handlePvcClick() {
         document.querySelector("#mainMenu").remove()
     })
     mainMenu.appendChild(createPlayerButton)
-    document.getElementById("footer").remove()
 
 }
 
