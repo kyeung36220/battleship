@@ -1,20 +1,10 @@
 import "./styles.css";
 import { Player, Ship } from "./functionality.js"
-import { makePlayerBoard, changeTurnDisplayText, makeFooter } from "./dom.js"
+import { makePlayerBoard, beforeFirstTurnDisplay, makeGameScreen } from "./dom.js"
+import { makeMainMenu } from "./mainMenu.js";
+import { createShipPlacementScreen } from "./shipPlacement.js";
 
-
-function initialize() {
-    const player1 = new Player("real", "Henry")
-    const player2 = new Player("real", "Aaron")
-    changeTurnDisplayText( whoHasFirstTurn(player1, player2) )
-    makeFooter()
-    randomShips(player1)
-    randomShips(player2)
-    makePlayerBoard("p1", player1)
-    makePlayerBoard("p2", player2)
-}
-
-function whoHasFirstTurn(player1, player2) {
+export function whoHasFirstTurn(player1, player2) {
     const rng = Math.ceil(Math.random() * 2)
     if (rng === 1) {
         return player1
@@ -25,7 +15,7 @@ function whoHasFirstTurn(player1, player2) {
     throw new Error("Rng for First Turn generation failed")
 }
 
-function randomShips(player) {
+export function randomShips(player) {
     const ship1 = new Ship(4)
     const ship2 = new Ship(3)
     const ship3 = new Ship(3)
@@ -58,4 +48,4 @@ function randomShips(player) {
     }
 }
 
-initialize()
+makeMainMenu()

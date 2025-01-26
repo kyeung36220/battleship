@@ -59,8 +59,17 @@ body {
   margin-top: 20px;
 }
 
-#turnDisplay {
-  font-size: 3.7rem;
+#mainMenu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15vh;
+  gap: 40px;
+}
+
+.mmButton {
+  font-size: 5rem;
   text-align: center;
   background-color: var(--colorFour);
   color: var(--colorOne);
@@ -68,6 +77,139 @@ body {
   margin: 10px auto 10px auto;
   padding: 0px 30px;
   border-radius: 30px;
+}
+
+.mmButton:hover {
+  cursor: pointer;
+  background-color: #77775d;
+}
+
+.nameLabel {
+  font-size: 5rem;
+}
+
+.nameInput {
+  height: 3rem;
+  width: 20vw;
+  font-size: 2.3rem;
+  padding: 10px;
+  text-align: center;
+}
+
+.errorMessage {
+  font-size: 2.3rem;
+  color: red;
+}
+
+#playerInputContainers {
+  display: flex;
+  gap: 20vw;
+  margin-bottom: 10vh;
+}
+
+.playerInputContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.createPlayerButton {
+  background-color: var(--colorFour);
+  color: var(--colorOne);
+  font-size: 3rem;
+  border-radius: 30px;
+  width: fit-content;
+  margin: 15px auto 15px auto;
+  padding: 10px 30px 5px 30px;
+}
+
+.createPlayerButton:hover {
+  cursor: pointer;
+  background-color: #77775d;
+}
+
+#shipPlacementScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#shipPlacementScreen .subTitle {
+  font-size: 3rem;
+}
+
+#shipPlacementScreen .playerBoard {
+  display: flex;
+  flex-wrap: wrap;
+  width: 30vw;
+  height: 30vw;
+}
+
+#shipPlacementScreen .buttonContainer {
+  display: flex;
+  gap: 5vw;
+  margin-top: 20px;
+}
+
+#shipPlacementScreen .button {
+  color: var(--colorOne);
+  font-size: 3rem;
+  border-radius: 30px;
+  width: fit-content;
+  margin: 15px auto 15px auto;
+  padding: 10px 30px 5px 30px;
+}
+
+#shipPlacementScreen .button:hover {
+  cursor: pointer;
+}
+
+#shipPlacementScreen .gridCell {
+  width: 3.0vw;
+  height: 3.0vw;
+  border: 2px solid var(--colorFour);
+  background-color: var(--colorOne);
+}
+
+#shipPlacementScreen .gridCell:hover {
+  cursor: pointer;
+}
+
+#backButton {
+  background-color: red;
+}
+
+#backButton:hover {
+  background-color: rgb(137, 0, 0);
+}
+
+#rotateButton {
+  background-color: yellow;
+}
+
+#rotateButton:hover {
+  background-color: rgb(166, 166, 0);
+}
+
+#readyButton {
+  background-color: rgb(0, 212, 0);
+}
+
+#readyButton:hover {
+  background-color: rgb(0, 125, 0);
+}
+
+#turnDisplay {
+  font-size: 3.7rem;
+  text-align: center;
+  color: var(--colorOne);
+  width: fit-content;
+  margin: 10px auto 10px auto;
+  padding: 0px 30px;
+  border-radius: 30px;
+}
+
+.turnDisplayButton {
+  cursor: pointer;
 }
 
 #boardsContainer {
@@ -95,16 +237,16 @@ body {
   font-size: 4rem;
 }
 
-.gridCell {
+.boardContainer .gridCell {
   width: 3.0vw;
   height: 3.0vw;
   border: 2px solid var(--colorFour);
   background-color: var(--colorOne);
 }
 
-.gridCell:hover {
+.boardContainer .gridCell:hover {
   cursor: pointer;
-  background-color: var(--colorThree);
+  background-color: white;
 }
 
 #footer {

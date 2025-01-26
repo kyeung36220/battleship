@@ -27,6 +27,7 @@ export class Gameboard {
         this.ships = []
         this.missedAttacks = []
         this.hitAttacks = []
+        this.amountOfShipsSunk = 0
     }
 
     makeShipCoords(shipCoords, orientation, shipObject) {
@@ -72,21 +73,20 @@ export class Gameboard {
 
     receiveAttack(coords) {
         const whatDidItHit = this.isAttackHit(coords)
-        if (JSON.stringify(this.hitAttacks).includes(JSON.stringify(coords)) || 
-            JSON.stringify(this.missedAttacks).includes(JSON.stringify(coords))) {
-                return false
-        }
         if (whatDidItHit === false) {
             this.missedAttacks.push(coords)
-            return
+            return 
         }
         else {
             whatDidItHit.hit()
             if (whatDidItHit.isSunk() === true) {
                 whatDidItHit.sunk = true
+                this.hitAttacks.push(coords)
+                this.amountOfShipsSunk += 1
+                return
             }
             this.hitAttacks.push(coords)
-            return
+            return 
         }
     }
 
@@ -95,6 +95,16 @@ export class Gameboard {
             if (JSON.stringify(this.ships[i]).includes(JSON.stringify(coords))) {
                 return this.ships[i]
             }
+        }
+        return false
+    }
+
+    isAttackDupe(coords) {
+        for (let i = 0; i < this.ships.length; i++) {
+            if (JSON.stringify(this.hitAttacks).includes(JSON.stringify(coords)) || 
+                JSON.stringify(this.missedAttacks).includes(JSON.stringify(coords))) {
+                return true
+                }
         }
         return false
     }
@@ -110,9 +120,15 @@ export class Gameboard {
 }
 
 export class Player {
-    constructor(type, name) {
+    constructor(type, name, playerNumber, opponent = null) {
         this.type = type
         this.gameboard = new Gameboard()
         this.name = name
+        this.playerNumber = playerNumber
+        this.opponent = opponent
+    }
+
+    set setOpponent(opponentObject) {
+        this.opponent = opponentObject
     }
 }

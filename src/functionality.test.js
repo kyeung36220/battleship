@@ -52,9 +52,9 @@ test("Error when ships overlap", () => {
 // Detects Attack
 test("Detects when ship is hit", () => {
     const testBoard = new Gameboard
-    const newShip = new Ship(2)
+    const newShip = new Ship(7)
     testBoard.makeShipOnBoard([0,0], "Vertical", newShip)
-    expect(testBoard.isAttackHit([0,1]))
+    expect(testBoard.isAttackHit([0,5]))
     .toBe(newShip)
 })
 test("Detect if shot is a miss", () => {
@@ -64,13 +64,15 @@ test("Detect if shot is a miss", () => {
     expect(testBoard.isAttackHit([0,2]))
     .toBe(false)
 })
+
+//Detects duplicate shot
 test("Detect if a shot is a duplicate", () => {
     const testBoard = new Gameboard
     const newShip = new Ship(2)
     testBoard.makeShipOnBoard([0,0], "Vertical", newShip)
     testBoard.receiveAttack([0,0])
-    expect(testBoard.receiveAttack([0,0]))
-    .toBe(false)
+    expect(testBoard.isAttackDupe([0,0]))
+    .toBe(true)
 })
 
 //Detects if ship is sunk
