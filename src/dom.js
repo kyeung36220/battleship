@@ -99,10 +99,12 @@ export function makeShipDisplay(player) {
     }
     const playerCells = document.querySelectorAll(`.${playerNumber}Cells`)
     playerCells.forEach((cell) => {
-        cell.addEventListener("click", () => {
-            alert("It is your turn! Click the opponent's board.")
-        })
+        cell.addEventListener("click", playerHittingOwnCell)
     })
+
+    function playerHittingOwnCell() {
+        alert("It is your turn! Click the opponent's board.")
+    }
 
     // opponent's board display
     const opponent = player.opponent
@@ -257,9 +259,20 @@ function handleWinScreen(winningPlayer) {
     turnDisplay.textContent = "Return to Main Menu"
     turnDisplay.classList.add("turnDisplayButton")
     turnDisplay.addEventListener("click", handleMainMenuButton)
-
     function handleMainMenuButton() {
         location.reload()
+    }
+
+    const opponent = winningPlayer.opponent
+    const opponentNumber = winningPlayer.opponent.playerNumber
+    const opponentShipsArray = opponent.gameboard.ships
+    for (let i = 0; i < opponentShipsArray.length; i++) {
+        if (opponentShipsArray[i].sunk === true) {
+            for (let j = 0; j < opponentShipsArray[i].coords.length; j++) {
+                const cellDOM = document.getElementById(`${opponentNumber}-[${opponentShipsArray[i].coords[j]}]`)
+                cellDOM.style.backgroundColor = "grey"
+            }
+        }
     }
 }
 
